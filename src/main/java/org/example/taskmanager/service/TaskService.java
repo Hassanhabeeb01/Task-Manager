@@ -2,9 +2,13 @@ package org.example.taskmanager.service;
 
 import org.example.taskmanager.dto.TaskRequest;
 import org.example.taskmanager.dto.TaskResponse;
+import org.example.taskmanager.model.Status;
 import org.example.taskmanager.entity.Task;
 import org.example.taskmanager.exception.ResourceNotFoundException;
 import org.example.taskmanager.repository.TaskRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,8 +30,11 @@ public class TaskService {
     }
 
 
-    public List<TaskResponse> getAllResponses() {
-        return taskRepository.findAll().stream().map(this::taskResponse).toList();
+    public Page<TaskResponse> getAllTask() {
+
+       Pageable pageable = PageRequest.of(0,10);
+
+        return taskRepository.findAll(pageable).map(this::taskResponse);
     }
 
     public TaskResponse getATask(Long id) {
@@ -52,6 +59,10 @@ public class TaskService {
        taskRepository.delete(task);
 
    }
+   public List<TaskResponse> findByStatus(Status status){
+      return taskRepository.findByStatus(status).stream().map(this::taskResponse).toList();
+
+   }
 
     private TaskResponse taskResponse(Task task) {
        TaskResponse taskResponse = new TaskResponse();
@@ -73,4 +84,5 @@ public class TaskService {
         task.setUpdatedDate(LocalDate.now());
         return task;
     }
+
 }

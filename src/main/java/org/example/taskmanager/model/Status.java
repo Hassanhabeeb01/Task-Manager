@@ -1,4 +1,4 @@
-package org.example.taskmanager.entity;
+package org.example.taskmanager.model;
 
 public enum Status {
     TODO,IN_PROGRESS,DONE

@@ -1,6 +1,7 @@
 package org.example.taskmanager.entity;
 
 import jakarta.persistence.*;
+import org.example.taskmanager.model.Status;
 
 import java.time.LocalDate;
 
@@ -9,6 +10,9 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users users;
     private String title;
     private String description;
     @Enumerated(EnumType.STRING)

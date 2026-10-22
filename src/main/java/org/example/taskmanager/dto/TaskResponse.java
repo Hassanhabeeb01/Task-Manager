@@ -1,9 +1,8 @@
 package org.example.taskmanager.dto;
 
-import org.example.taskmanager.entity.Status;
+import org.example.taskmanager.model.Status;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class TaskResponse {
     private Long id;

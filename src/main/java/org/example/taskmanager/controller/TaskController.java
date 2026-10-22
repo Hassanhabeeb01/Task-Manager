@@ -3,8 +3,9 @@ package org.example.taskmanager.controller;
 import jakarta.validation.Valid;
 import org.example.taskmanager.dto.TaskRequest;
 import org.example.taskmanager.dto.TaskResponse;
-import org.example.taskmanager.entity.Task;
+import org.example.taskmanager.model.Status;
 import org.example.taskmanager.service.TaskService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +29,9 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TaskResponse>>getAllTasks() {
+    public ResponseEntity<Page<TaskResponse>>getAllTasks() {
 
-        return ResponseEntity.status(HttpStatus.OK).body(taskService.getAllResponses());
+        return ResponseEntity.status(HttpStatus.OK).body(taskService.getAllTask());
     }
 
     @GetMapping("/{id}")
@@ -38,6 +39,11 @@ public class TaskController {
 
       TaskResponse taskResponse =  taskService.getATask(id);
         return ResponseEntity.status(HttpStatus.OK).body(taskResponse);
+    }
+
+    @GetMapping("/{status}")
+    public ResponseEntity<List<TaskResponse>> getTaskByStatus(@PathVariable Status status){
+        return ResponseEntity.status(HttpStatus.OK).body(taskService.findByStatus(status));
     }
 
     @PutMapping("/{id}")

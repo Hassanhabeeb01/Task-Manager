@@ -2,7 +2,7 @@ package org.example.taskmanager.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.example.taskmanager.entity.Status;
+import org.example.taskmanager.model.Status;
 
 public class TaskRequest {
     @NotBlank(message = "Title cannot be blank")
@@ -10,7 +10,6 @@ public class TaskRequest {
     private String title;
     @Size(max = 500, message = "Description cannot exceed 500 words ")
     private String description;
-    @NotBlank(message = "Title cannot be blank")
     private Status status = Status.TODO;
     public Status getStatus() {
         return status;
